@@ -1,0 +1,17 @@
+PATH
+  remote: .
+  specs:
+    slimy (0.0.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  slimy!
+
+BUNDLED WITH
+   2.0.2
