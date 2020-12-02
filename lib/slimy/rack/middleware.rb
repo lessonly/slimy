@@ -1,5 +1,8 @@
 module Slimy::Rack
   class SLIMiddleware
+
+    MIDDLEWARE_CONTEXT_KEY="slimy.milddeware.context"
+
     def initialize(app)
       @app = app
       @reporter = Slimy::Reporters::RailsLogReporter.new
@@ -7,6 +10,7 @@ module Slimy::Rack
 
     def call(env)
       context = Slimy::Context.new(deadline: 200)
+      env[MIDDLEWARE_CONTEXT_KEY] = context
       begin
         response = @app.call(env)
         context.result_error! if response[0] >= 500

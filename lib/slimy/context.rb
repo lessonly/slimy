@@ -24,7 +24,7 @@ module Slimy
     attr_reader :start_time, :end_time
 
 
-    attr_accessor :tags
+    attr_accessor :tags, :deadline
 
     # Set the end_time value for the context if not already set
     #
@@ -74,7 +74,7 @@ module Slimy
 
 
     def debug_format
-      "slimy_ctx:\n\tfinished: #{finished?}\n\tduration: #{duration}\n\tresult_success: #{result_success?}\n\tduration_success: #{deadline_success?}\n\tsuccess: #{success?}"
+      "slimy_ctx:\n\tfinished: #{finished?}\n\tduration: #{duration}\n\tresult_success: #{result_success?}\n\tduration_success: #{deadline_success?}\n\tsuccess: #{success?}\n\tdeadline: #{deadline}\n\ttags: #{tags.inspect}"
     end
 
   end
