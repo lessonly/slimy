@@ -73,6 +73,10 @@ module Slimy
     end
 
 
+    def debug_format
+      "slimy_ctx:\n\tfinished: #{finished?}\n\tduration: #{duration}\n\tresult_success: #{result_success?}\n\tduration_success: #{deadline_success?}\n\tsuccess: #{success?}"
+    end
+
   end
 
 end
