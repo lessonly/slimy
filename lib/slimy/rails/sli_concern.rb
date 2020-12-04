@@ -30,7 +30,6 @@ module Slimy::Rails
 
       # helpers
       def slimy_context
-        binding.pry
         request.env[Slimy::Rack::SLIMiddleware::MIDDLEWARE_CONTEXT_KEY]
       end
 
