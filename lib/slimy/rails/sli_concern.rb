@@ -30,17 +30,18 @@ module Slimy::Rails
 
       # helpers
       def slimy_context
+        binding.pry
         request.env[Slimy::Rack::SLIMiddleware::MIDDLEWARE_CONTEXT_KEY]
       end
 
-      def add_sli_tag(tag,value)
+      def add_sli_tag(tag, value)
         ctx = slimy_context
         ctx.tags[tag] = value unless ctx.nil?
       end
 
       def add_sli_ignore
         ctx = slimy_context
-        ctx.do_not_report! unless ctx.nil?
+        ctx&.do_not_report!
       end
 
       def add_sli_deadline(deadline)
