@@ -5,11 +5,11 @@ module Slimy::Rack
 
     def initialize(app)
       @app = app
-      @reporter = Slimy::Reporters::RailsLogReporter.new
+      @reporter = Slimy::Configuration.default.reporter
     end
 
     def call(env)
-      context = Slimy::Context.new(deadline: 200)
+      context = Slimy::Context.new(deadline: 200, type: 'rack')
       env[MIDDLEWARE_CONTEXT_KEY] = context
       begin
         response = @app.call(env)

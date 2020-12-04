@@ -16,16 +16,17 @@ module Slimy
     # deadline::
     #   ms that this context should be finished in to be considered acceptable
     #
-    def initialize(start_time: nil, deadline: nil)
+    def initialize(start_time: nil, type: "request", deadline: nil)
       @start_time = start_time || Time.now
       @deadline = deadline
       @result_status = :success
       @end_time = nil
       @tags = {}
       @reportable = true
+      @type = type
     end
 
-    attr_reader :start_time, :end_time
+    attr_reader :start_time, :end_time, :type
 
 
     attr_accessor :tags, :deadline
