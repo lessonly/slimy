@@ -11,21 +11,22 @@ module Slimy::Rack
     def call(env)
       context = Slimy::Context.new(deadline: 200, type: 'rack')
       env[MIDDLEWARE_CONTEXT_KEY] = context
+      response = nil
       begin
         response = @app.call(env)
         context.result_error! if response[0] >= 500
-      rescue Exception => error
+      rescue StandardError => e
         context.result_error!
-        raise error
+        raise e
       ensure
         context.finish
         report(context)
-        return response
       end
+      response
     end
 
     def report(context)
-      @reporter.report(context) unless @reporter.nil?
+      @reporter&.report(context)
     end
   end
 end

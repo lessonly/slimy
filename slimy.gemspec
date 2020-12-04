@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
                   + "type metrics for Rack, Sidekiq, and maybe more."
   s.authors     = ["Tyler Henrichs", "Stephen Gregory"]
   s.email       = "devops+slimy@lessonly.com"
-  s.homepage    = "https://rubygems.org/gems/slimy"
+  s.homepage    = "https://github.com/lessonly/slimy"
   s.license     = "MIT"
   s.files       = `git ls-files`.split("\n")
 
