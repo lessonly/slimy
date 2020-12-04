@@ -1,7 +1,11 @@
 require 'bundler'
 Bundler::GemHelper.install_tasks
-require "rake/testtask"
+require 'rake/testtask'
+require 'bump/tasks'
+require 'rubocop/rake_task'
 
+
+RuboCop::RakeTask.new
 
 Rake::TestTask.new do |t|
   t.libs << "test"
@@ -10,4 +14,4 @@ Rake::TestTask.new do |t|
 end
 desc "Run tests"
 
-task default: :test
+task default: [:test, :rubocop]
