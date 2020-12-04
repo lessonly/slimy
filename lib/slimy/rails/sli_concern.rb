@@ -23,6 +23,11 @@ module Slimy::Rails
         end
       end
 
+      before_action do
+        add_sli_tag("controller", controller_name)
+        add_sli_tag("action", action_name)
+      end
+
       # helpers
       def slimy_context
         request.env[Slimy::Rack::SLIMiddleware::MIDDLEWARE_CONTEXT_KEY]
