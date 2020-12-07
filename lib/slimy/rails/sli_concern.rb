@@ -18,7 +18,7 @@ module Slimy
 
         def self.sli_tags(tags, except: nil, only: nil)
           before_action only: only, except: except do
-            tags.each_pair do | tag, value |
+            tags.each_pair do |tag, value|
               add_sli_tag(tag, value)
             end
           end
