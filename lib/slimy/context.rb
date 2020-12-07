@@ -3,14 +3,14 @@
 module Slimy
   # Slimy::Context
   #
-  # This is a group of metadata that exists for the duration of some request to be measured
-  # as part of an SLI.
+  # This is a group of metadata that exists for the duration of some request
+  # to be measured as part of an SLI.
   #
   class Context
     # Create a new context sets the `start_time` to now
     #
     # == Parameters
-    # start_time::
+    # start_time:
     #   An overriden Time at which the event started.  Defaults to now.
     #
     # deadline::

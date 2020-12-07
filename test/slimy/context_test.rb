@@ -15,7 +15,8 @@ class ContextTest < Minitest::Test
     freeze_ms(30) do
       context.finish
       assert context.finished?
-      refute context.deadline_success?, "duration: #{context.duration} should be less than 20"
+      refute context.deadline_success?,
+             "duration: #{context.duration} should be less than 20"
       assert context.result_success?
       refute context.success?
     end

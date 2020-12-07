@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
-module Slimy::Rack
-  autoload :SLIMiddleware, "slimy/rack/middleware"
+module Slimy
+  # rack integration for slimy
+  module Rack
+    autoload :SLIMiddleware, "slimy/rack/middleware"
+  end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-$:.push File.expand_path("lib", __dir__)
+$LOAD_PATH.push File.expand_path("lib", __dir__)
 require "slimy/version"
 
 Gem::Specification.new do |s|

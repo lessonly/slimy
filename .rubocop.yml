@@ -9,3 +9,13 @@ Style/StringLiterals:
 
 Style/ClassVars:
   Enabled: false
+
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Max: 20
+  Severity: refactor
+
+Metrics/BlockLength:
+  Enabled: true
+  CountComments: false
+  Max: 40
