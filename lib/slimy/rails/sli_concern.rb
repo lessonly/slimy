@@ -1,24 +1,24 @@
+# frozen_string_literal: true
+
 module Slimy::Rails
-
-  module SLITools extend ActiveSupport::Concern
-
+  module SLITools
+    extend ActiveSupport::Concern
     included do
-
       # class-level meta commands
       def self.sli_tag(tag, value, except: nil, only: nil)
-        self.before_action only: only, except: except do
-          add_sli_tag(tag,value)
+        before_action only: only, except: except do
+          add_sli_tag(tag, value)
         end
       end
 
       def self.sli_ignore(except: nil, only: nil)
-        self.before_action only: only, except: except do
+        before_action only: only, except: except do
           add_sli_ignore
         end
       end
 
       def self.sli_deadline(deadline, except: nil, only: nil)
-        self.before_action only: only, except: except do
+        before_action only: only, except: except do
           add_sli_deadline(deadline)
         end
       end

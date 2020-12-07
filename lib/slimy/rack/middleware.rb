@@ -18,7 +18,7 @@ module Slimy::Rack
       env[MIDDLEWARE_CONTEXT_KEY] = context
       response = nil
       begin
-        response = @app.call(env) 
+        response = @app.call(env)
         context.result_error! if response[0] >= 500
       rescue StandardError => e
         context.result_error!

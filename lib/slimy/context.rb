@@ -1,12 +1,12 @@
-module Slimy
+# frozen_string_literal: true
 
+module Slimy
   # Slimy::Context
   #
   # This is a group of metadata that exists for the duration of some request to be measured
   # as part of an SLI.
   #
   class Context
-
     # Create a new context sets the `start_time` to now
     #
     # == Parameters
@@ -27,7 +27,6 @@ module Slimy
     end
 
     attr_reader :start_time, :end_time, :type
-
 
     attr_accessor :tags, :deadline
 
@@ -76,12 +75,14 @@ module Slimy
     # duration in ms of the event
     def duration
       return -1 unless finished?
-      [@end_time - @start_time,0].max * 1000.0
+
+      [@end_time - @start_time, 0].max * 1000.0
     end
 
     # Did the request finish before the deadline (or was there no deadline)
     def deadline_success?
-      return true if @deadline.nil? || ! finished?
+      return true if @deadline.nil? || !finished?
+
       duration < @deadline
     end
 
@@ -94,11 +95,15 @@ module Slimy
       @reportable = false
     end
 
-    # tool for debugging 
+    # tool for debugging
     def debug_format
-      "slimy_ctx:\n\tfinished: #{finished?}\n\tduration: #{duration}\n\tresult_success: #{result_success?}\n\tduration_success: #{deadline_success?}\n\tsuccess: #{success?}\n\tdeadline: #{deadline}\n\ttags: #{tags.inspect}"
+      "slimy_ctx:\n\tfinished: #{finished?}\n" \
+      + "\tduration: #{duration}\n" \
+      + "\tresult_success: #{result_success?}\n" \
+      + "\tduration_success: #{deadline_success?}\n" \
+      + "\tsuccess: #{success?}\n" \
+      + "\tdeadline: #{deadline}\n" \
+      + "\ttags: #{tags.inspect}\n"
     end
-
   end
-
 end

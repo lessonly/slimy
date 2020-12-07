@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class ContextTest < Minitest::Test
-
   def test_that_context_new_works
     context = Slimy::Context.new
     refute_nil context
@@ -44,5 +45,4 @@ class ContextTest < Minitest::Test
       refute context.success?
     end
   end
-
 end

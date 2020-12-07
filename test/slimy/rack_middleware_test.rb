@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rack/mock"
 require "test_helper"
 

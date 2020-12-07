@@ -1,5 +1,6 @@
-module Slimy::Reporters
+# frozen_string_literal: true
 
+module Slimy::Reporters
   class RailsLogReporter
     def initialize(level: :debug)
       @level = level
