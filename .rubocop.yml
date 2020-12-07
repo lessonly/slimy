@@ -18,4 +18,4 @@ Metrics/MethodLength:
 Metrics/BlockLength:
   Enabled: true
   CountComments: false
-  Max: 40
+  Max: 50

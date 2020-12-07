@@ -16,6 +16,14 @@ module Slimy
           end
         end
 
+        def self.sli_tags(tags, except: nil, only: nil)
+          before_action only: only, except: except do
+            tags.each_pair do | tag, value |
+              add_sli_tag(tag, value)
+            end
+          end
+        end
+
         def self.sli_ignore(except: nil, only: nil)
           before_action only: only, except: except do
             add_sli_ignore
