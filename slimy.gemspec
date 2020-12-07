@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
 
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency "rack", "~> 2.0"
 
+  s.add_development_dependency "rack", "~> 2.0"
   s.add_development_dependency "bump"
   s.add_development_dependency "bundler", ">= 1.0", "< 3"
   s.add_development_dependency "minitest", "~> 5.14"
