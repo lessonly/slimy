@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
 
   s.require_paths = ["lib"]
 
-
   s.add_development_dependency "rack", "~> 2.0"
   s.add_development_dependency "bump"
   s.add_development_dependency "bundler", ">= 1.0", "< 3"
@@ -25,4 +24,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake", "~> 10.4", ">= 10.4.2"
   s.add_development_dependency "rubocop"
   s.add_development_dependency "timecop", "~> 0.9"
+  s.add_development_dependency "guard-minitest"
+  s.add_development_dependency "guard"
 end
