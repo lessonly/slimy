@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    slimy (0.0.4)
+    slimy (0.0.5)
 
 GEM
   remote: https://rubygems.org/
