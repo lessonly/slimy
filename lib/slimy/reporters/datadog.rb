@@ -20,13 +20,13 @@ module Slimy
         if current_span.nil?
           Rails.logger.debug("COULD NOT FIND SPAN")
         else
-          set_tags_on_span(context, sli_status)
+          set_tags_on_span(context, sli_status, current_span)
           @dogstatsd.increment("sli.#{context.type}.#{sli_status}",
                                tags: context.tags)
         end
       end
 
-      def set_tags_on_span(context, sli_status)
+      def set_tags_on_span(context, sli_status, current_span)
         current_span.set_tag("sli_status", sli_status)
         current_span.set_tag("sli_deadline", context.deadline)
         context.tags.each_pair do |key, value|
