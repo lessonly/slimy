@@ -1,3 +1,5 @@
+### v0.0.8 - 2020-12-08
+-  remove controller_class_name use class.name
 ### v0.0.7 - 2020-12-07
 
 #### Rails Integration
