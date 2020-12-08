@@ -37,7 +37,7 @@ module Slimy
         end
 
         before_action do
-          add_sli_tag("controller", controller_name)
+          add_sli_tag("controller", controller_class_name)
           add_sli_tag("action", action_name)
         end
 
