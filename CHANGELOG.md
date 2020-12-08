@@ -1,3 +1,9 @@
+### v0.0.7 - 2020-12-07
+
+#### Rails Integration
+
+- controller tag will now use controller_class_name to prevent potential namespace conflicts
+
 ### v0.0.6 - 2020-12-07
 
 - Fix datadog issues
