@@ -91,7 +91,7 @@ module Slimy
       @reportable
     end
 
-    def don_not_report!
+    def do_not_report!
       @reportable = false
     end
 
