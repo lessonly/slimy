@@ -1,4 +1,5 @@
 # slimy
+[![Build Status](https://travis-ci.org/lessonly/slimy.svg?branch=main)](https://travis-ci.org/lessonly/slimy)
 
 SLI middleware for rack.  Most monitoring instrumentation is organized around Golden Signals, USE, RED, etc.  The goal of this library is to provide direct measurement useful for determining SLIs, SLOs and error budgets.
 ## What is a Service Level Indicator (SLI)?
