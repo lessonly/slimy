@@ -1,52 +1,56 @@
-module Slimy::Sidekiq
+# frozen_string_literal: true
 
-  class SLIMiddleware
-
-    def initialize(opts = {})
-      @reporter = Slimy::Configuration.default.reporter
-      @default_tags = opts[:tags] || {}
-      @default_deadlines = opts[:deadlines] || {}
-    end
-
-    def call(worker, msg, queue)
-      context = setup_context(worker, msg, queue)
-      begin
-        result = yield
-        # todo figure out how to check if job was error?
-        # can the job fail/error without raising an exception?
-      rescue Exception => error
-        context.result_error!
-        raise error
-      ensure
-        context.finish
-        report(context)
-        return result
-      end
-    end
-
-    def report(context)
-      @reporter.report(context) unless @reporter.nil?
-    end
-
-    private
-
-    def setup_context(worker, msg, queue)
-      ctx = Slimy::Context.new(deadline: 200, type: 'sidekiq')
-      ctx.tags = @default_tags
-
-      if @default_deadlines.key?(queue.to_sym)
-        ctx.deadline = @default_deadlines[queue.to_sym]
+module Slimy
+  module Sidekiq
+    # sidekiq middleware for tracking job SLIs
+    class SLIMiddleware
+      def initialize(opts = {})
+        @reporter =
+          if opts.key? :reporter
+            opts[:reporter]
+          else
+            Slimy::Configuration.default.reporter
+          end
+        @default_tags = opts[:tags] || {}
+        @default_deadlines = opts[:deadlines] || {}
       end
 
-      if worker.respond_to?(:sli_deadline)
-        ctx.deadline = worker.sli_deadline
+      def call(worker, _msg, queue)
+        context = setup_context(worker, queue)
+        begin
+          result = yield
+        rescue StandardError => e
+          context.result_error!
+          raise e
+        ensure
+          context.finish
+          report(context)
+        end
+        result
       end
 
-      if worker.respond_to?(:sli_tags) && worker.sli_tags.is_a? Hash
-        ctx.tags.merge! worker.sli_tags
+      def report(context)
+        @reporter&.report(context)
       end
 
-      return ctx
+      private
+
+      def setup_context(worker, queue)
+        ctx = Slimy::Context.new(deadline: 200, type: "sidekiq")
+        ctx.tags = @default_tags
+
+        if worker.respond_to?(:sli_deadline)
+          ctx.deadline = worker.sli_deadline
+        elsif @default_deadlines.key?(queue.to_sym)
+          ctx.deadline = @default_deadlines[queue.to_sym]
+        end
+
+        if worker.respond_to?(:sli_tags) && worker.sli_tags.is_a?(Hash)
+          ctx.tags.merge! worker.sli_tags
+        end
+
+        ctx
+      end
     end
   end
 end
