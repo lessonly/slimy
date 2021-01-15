@@ -1,7 +1,6 @@
 
 AllCops:
   TargetRubyVersion: 2.6
-  TargetRailsVersion: 6.0
 
 Style/StringLiterals:
   Enabled: true
