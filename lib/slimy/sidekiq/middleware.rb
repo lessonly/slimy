@@ -37,7 +37,7 @@ module Slimy
 
       def setup_context(worker, queue)
         ctx = Slimy::Context.new(deadline: 200, type: "sidekiq")
-        ctx.tags = @default_tags.merge(queue: queue)
+        ctx.tags = @default_tags.merge(queue: queue, job: worker.class.name)
         if worker.respond_to?(:sli_tags) && worker.sli_tags.is_a?(Hash)
           ctx.tags.merge! worker.sli_tags
         end

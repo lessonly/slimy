@@ -102,6 +102,18 @@ class SidekiqMiddlewareTest < Minitest::Test
     )
   end
 
+  def test_job_override_tags_job_name
+    worker = OverrideWorker.new
+    middleware.call(worker, {}, "default") do
+      worker.perform(0.9)
+    end
+
+    assert(
+      @reporter.ctx.tags[:job] == worker.class.name,
+      "SLI context tags should include job name"
+    )
+  end
+
   def test_default_queue_deadline_success
     mw = middleware(deadlines: { custom_queue: 2000 })
     mw.call(TimecopWorker.new, {}, "custom_queue") do
