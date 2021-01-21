@@ -37,18 +37,26 @@ module Slimy
 
       def setup_context(worker, queue)
         ctx = Slimy::Context.new(deadline: 200, type: "sidekiq")
-        ctx.tags = @default_tags.merge(queue: queue, job: worker.class.name)
-        if worker.respond_to?(:sli_tags) && worker.sli_tags.is_a?(Hash)
-          ctx.tags.merge! worker.sli_tags
-        end
-
-        if worker.respond_to?(:sli_deadline)
-          ctx.deadline = worker.sli_deadline
-        elsif @default_deadlines.key?(queue.to_sym)
-          ctx.deadline = @default_deadlines[queue.to_sym]
-        end
-
+        set_tags!(ctx, worker, queue)
+        set_deadline!(ctx, worker, queue)
         ctx
+      end
+
+      def set_tags!(context, worker, queue)
+        context.tags = @default_tags.merge(queue: queue, job: worker.class.name)
+        worker_tags = worker.class.get_sidekiq_options["sli_tags"]
+        return unless !worker_tags.nil? && worker_tags.is_a?(Hash)
+
+        context.tags.merge! worker_tags
+      end
+
+      def set_deadline!(context, worker, queue)
+        worker_deadline = worker.class.get_sidekiq_options["sli_deadline"]
+        if !worker_deadline.nil?
+          context.deadline = worker_deadline
+        elsif @default_deadlines.key?(queue.to_sym)
+          context.deadline = @default_deadlines[queue.to_sym]
+        end
       end
     end
   end
