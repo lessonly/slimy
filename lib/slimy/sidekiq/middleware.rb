@@ -4,6 +4,8 @@ module Slimy
   module Sidekiq
     # sidekiq middleware for tracking job SLIs
     class SLIMiddleware
+      DEFAULT_DEADLINE = 200
+
       def initialize(opts = {})
         @reporter =
           if opts.key? :reporter
@@ -36,7 +38,7 @@ module Slimy
       private
 
       def setup_context(worker, queue)
-        ctx = Slimy::Context.new(deadline: 200, type: "sidekiq")
+        ctx = Slimy::Context.new(deadline: DEFAULT_DEADLINE, type: "sidekiq")
         set_tags!(ctx, worker, queue)
         set_deadline!(ctx, worker, queue)
         ctx
