@@ -5,7 +5,9 @@ require "sidekiq"
 require "slimy/sidekiq/middleware"
 
 class SidekiqMiddlewareTest < Minitest::Test
-  OVERRIDE_DEADLINE = 1000
+  DEFAULT_DEADLINE_SECONDS =
+    Slimy::Sidekiq::SLIMiddleware::DEFAULT_DEADLINE / 1000.0
+  OVERRIDE_DEADLINE_SECONDS = 1.0
 
   class BasicWorker
     include Sidekiq::Worker
@@ -17,7 +19,7 @@ class SidekiqMiddlewareTest < Minitest::Test
   class OverrideWorker
     include Sidekiq::Worker
     sidekiq_options sli_tags: { tag1: "value1" },
-                    sli_deadline: OVERRIDE_DEADLINE
+                    sli_deadline: (OVERRIDE_DEADLINE_SECONDS * 1000)
 
     def perform(time)
       Timecop.freeze(Time.now + time)
@@ -46,14 +48,14 @@ class SidekiqMiddlewareTest < Minitest::Test
 
   def test_job_sli_success
     middleware.call(OverrideWorker.new, {}, "default") do
-      OverrideWorker.new.perform(DEFAULT_DEADLINE - 0.1)
+      OverrideWorker.new.perform(DEFAULT_DEADLINE_SECONDS - 0.1)
     end
     assert(@reporter.ctx.success?, "SLI metric should be successful")
   end
 
   def test_job_default_deadline_slow
     middleware.call(BasicWorker.new, {}, "default") do
-      BasicWorker.new.perform(DEFAULT_DEADLINE + 0.1)
+      BasicWorker.new.perform(DEFAULT_DEADLINE_SECONDS + 0.1)
     end
     refute(@reporter.ctx.success?, "SLI metric should be a failure")
   end
@@ -70,7 +72,7 @@ class SidekiqMiddlewareTest < Minitest::Test
   def test_job_override_deadline_success
     worker = OverrideWorker.new
     middleware.call(worker, {}, "default") do
-      worker.perform(OVERRIDE_DEADLINE - 0.1)
+      worker.perform(OVERRIDE_DEADLINE_SECONDS - 0.1)
     end
     assert(@reporter.ctx.success?, "SLI metric should be successful")
   end
@@ -78,7 +80,7 @@ class SidekiqMiddlewareTest < Minitest::Test
   def test_job_override_deadline_failuire
     worker = OverrideWorker.new
     middleware.call(worker, {}, "default") do
-      worker.perform(OVERRIDE_DEADLINE + 0.1)
+      worker.perform(OVERRIDE_DEADLINE_SECONDS + 0.1)
     end
     refute(@reporter.ctx.success?, "SLI metric should be a failure")
   end
@@ -86,7 +88,7 @@ class SidekiqMiddlewareTest < Minitest::Test
   def test_job_override_tags
     worker = OverrideWorker.new
     middleware.call(worker, {}, "default") do
-      worker.perform(OVERRIDE_DEADLINE - 0.1)
+      worker.perform(OVERRIDE_DEADLINE_SECONDS - 0.1)
     end
 
     assert(
@@ -98,7 +100,7 @@ class SidekiqMiddlewareTest < Minitest::Test
   def test_tags_job_name
     worker = OverrideWorker.new
     middleware.call(worker, {}, "default") do
-      worker.perform(OVERRIDE_DEADLINE - 0.1)
+      worker.perform(OVERRIDE_DEADLINE_SECONDS - 0.1)
     end
 
     assert(
