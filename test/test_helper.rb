@@ -9,3 +9,15 @@ def freeze_ms(duration_ms)
     yield
   end
 end
+
+class DummyReporter
+  def initialize
+    @ctx = nil
+  end
+
+  def report(ctx)
+    @ctx = ctx
+  end
+
+  attr_reader :ctx
+end

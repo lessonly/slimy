@@ -6,6 +6,7 @@ require "slimy/config"
 require "slimy/rack"
 require "slimy/rails"
 require "slimy/reporters"
+require "slimy/sidekiq"
 
 # Slimy module for SLI Instrumentation
 module Slimy

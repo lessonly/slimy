@@ -57,15 +57,3 @@ class ContextTest < Minitest::Test
     refute(@reporter.ctx.success?, "SLI metric should be a failure")
   end
 end
-
-class DummyReporter
-  def initialize
-    @ctx = nil
-  end
-
-  def report(ctx)
-    @ctx = ctx
-  end
-
-  attr_reader :ctx
-end

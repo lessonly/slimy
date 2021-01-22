@@ -1,3 +1,6 @@
+### v0.0.10 - 2021-01-19
+-  add sidekiq middleware for sli metrics
+
 ### v0.0.9 - 2020-12-11
 ### v0.0.8 - 2020-12-08
 -  remove controller_class_name use class.name
