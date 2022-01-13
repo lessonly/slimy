@@ -4,7 +4,7 @@ module Slimy
   module Rack
     # rack middleware for tracking http request SLIs
     class SLIMiddleware
-      MIDDLEWARE_CONTEXT_KEY = "slimy.milddeware.context"
+      MIDDLEWARE_CONTEXT_KEY = "slimy.middleware.context"
 
       def initialize(app, options = {})
         @app = app
