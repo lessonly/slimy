@@ -1,3 +1,6 @@
+### v0.0.11 - 2022-11-10
+-  Fixed Slimy::Reporters::RailsLogReporter, it should now be used to output logs through the host application's Rails.
+ 
 ### v0.0.10 - 2021-01-19
 -  add sidekiq middleware for sli metrics
 
