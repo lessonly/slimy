@@ -14,7 +14,7 @@ module Slimy
       end
 
       def log(msg)
-        Rails.logger.send(@level, msg)
+        ::Rails.logger.send(@level, msg)
       end
     end
   end

@@ -17,9 +17,7 @@ module Slimy
 
         sli_status = (context.success? ? "success" : "failure")
         current_span = Datadog.tracer.active_span
-        if current_span.nil?
-          Rails.logger.debug("COULD NOT FIND SPAN")
-        else
+        unless current_span.nil?
           set_tags_on_span(context, sli_status, current_span)
           @dogstatsd.increment("sli.#{context.type}.#{sli_status}",
                                tags: context.tags)
