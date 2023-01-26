@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.require_paths = ["lib"]
 
+  s.add_development_dependency "activesupport", "~> 6.1"
   s.add_development_dependency "bump"
   s.add_development_dependency "bundler", ">= 1.0", "< 3"
   s.add_development_dependency "guard"
@@ -28,5 +29,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake", "~> 10.4", ">= 10.4.2"
   s.add_development_dependency "rubocop"
   s.add_development_dependency "sidekiq", "~> 6.1"
+  s.add_development_dependency "spy", "~> 1.0.3"
   s.add_development_dependency "timecop", "~> 0.9"
 end
