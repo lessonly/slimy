@@ -11,6 +11,11 @@ def freeze_ms(duration_ms)
   end
 end
 
+def create_class(parent_klass)
+  Class.new(parent_klass) do
+  end
+end
+
 class DummyReporter
   def initialize
     @ctx = nil
