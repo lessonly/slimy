@@ -11,32 +11,35 @@ module Slimy
       included do
         # class-level meta commands
         def self.sli_tag(tag, value, except: nil, only: nil)
-          before_action only: only, except: except do
+          define_method("add_sli_tag_#{tag}") do
             add_sli_tag(tag, value)
           end
+
+          prepend_before_action :"add_sli_tag_#{tag}", only: only, except: except
         end
 
         def self.sli_tags(tags, except: nil, only: nil)
-          before_action only: only, except: except do
+          define_method("add_sli_tags") do
             tags.each_pair do |tag, value|
               add_sli_tag(tag, value)
             end
           end
+
+          prepend_before_action :add_sli_tags, only: only, except: except
         end
 
         def self.sli_ignore(except: nil, only: nil)
-          before_action only: only, except: except do
-            add_sli_ignore
-          end
+          prepend_before_action :add_sli_ignore, only: only, except: except
         end
 
         def self.sli_deadline(deadline, except: nil, only: nil)
-          before_action only: only, except: except do
+          define_method("sli_deadline") do
             add_sli_deadline(deadline)
           end
+          prepend_before_action :sli_deadline, only: only, except: except
         end
 
-        before_action do
+        prepend_before_action do
           add_sli_tag("controller", self.class.name)
           add_sli_tag("action", action_name)
         end

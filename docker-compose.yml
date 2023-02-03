@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  slimy:
+    build: .
+    container_name: slimy
+    volumes:
+      - .:/slimy
+      - ~/.zsh_history:/root/.zsh_history
+    tty: true
+    stdin_open: true
