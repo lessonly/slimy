@@ -1,12 +1,21 @@
+### v0.1.0 - 2023-2-3
+
+- Fixed Slimy::Rails::SLITools, it now prepends actions to enable sli methods to run before rails redirect or render halting from other before_actions. `sli_tag`, `sli_tags`, `sli_ignore`, and `sli_deadline` should only be called once per subclass controller now.
+
 ### v0.0.11 - 2022-11-10
--  Fixed Slimy::Reporters::RailsLogReporter, it should now be used to output logs through the host application's Rails.
- 
+
+- Fixed Slimy::Reporters::RailsLogReporter, it should now be used to output logs through the host application's Rails.
+
 ### v0.0.10 - 2021-01-19
--  add sidekiq middleware for sli metrics
+
+- add sidekiq middleware for sli metrics
 
 ### v0.0.9 - 2020-12-11
+
 ### v0.0.8 - 2020-12-08
--  remove controller_class_name use class.name
+
+- remove controller_class_name use class.name
+
 ### v0.0.7 - 2020-12-07
 
 #### Rails Integration
